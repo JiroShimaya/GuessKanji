@@ -25,8 +25,12 @@
 		<div class="kanji-area"></div>
 		<div class="button-area"></div>
 		<div class="supplement-area">
+			<br>
 			<span>アイデア元：</span>
 			<a target='_blank' href='https://www.youtube.com/watch?v=Vc3cIMTvZTc'>https://www.youtube.com/watch?v=Vc3cIMTvZTc</a>
+			<div>----------</div>
+			<div>更新履歴</div>
+			<div>2020/04/25 Webアプリ公開</div>
 		</div>
 	</div>
 </body>
@@ -71,7 +75,7 @@ const loadTextFileSync = path => {
 		area.css('margin-top','20px');
 		area.append('<span>何%隠すか：</span>');
 		
-		const iptSetHeight = $('<input type="range" value="60" max="100" min="0" step="10">');
+		const iptSetHeight = $('<input type="range" value="50" max="100" min="0" step="10">');
 		area.append(iptSetHeight);
 		
 		const num_area = $('<span></span>');
