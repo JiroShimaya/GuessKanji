@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GuessKanji</title>
+
+	 <!-- jquery cdn -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<!-- jquery ui cdn -->
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+	<!-- bootstrap4 cdn (jsはjqueryよりあとに読み込む)-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+	<!-- fontawesome -->
+	<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+</head>
+<body>
+	<div class="container main">
+		<div class="row setting"></div>
+		<div class="row kanji-area"></div>
+		
+	</div>
+	<div class="container">
+		<span>参考ページ</span>
+		<br>
+		<span>アイデア：</span>
+		<a target='_blank' href='https://tarotfun.jp/tarot-card-divination/'>https://tarotfun.jp/tarot-card-divination/</a>
+	</div>
+</body>
+<script>
+//便利関数を定義しておく
+const getRandomFromList = ary => {
+	return ary[Math.floor(Math.random() * ary.length)];
+}
+const loadTextFileSync = path => {
+	const ajax = $.ajax({
+		url: path,
+		type: 'GET',
+		dataType: 'text',
+		async: false,
+		success: data=>{
+			console.log('success');
+		},
+		error: data=>{
+			console.log('error in loading file of',path);
+			console.log(data);
+		}
+	});
+	return ajax.responseText;
+}
+</script>
+<script>
+(()=>{
+	const container = $('.container.main');
+	const kanjilist = loadTextFileSync('kanjilist.csv')
+						.split(/\r\n|\n|\r/)
+						.slice(1)
+						.map(v=>v.split(',')[0]);
+	
+	console.log(kanjilist.join(','));
+
+	const displayKanji = () => {
+		const area = $('.kanji-area');
+		area.css('position','relative');
+		const kanjiArea = $('<div></div>');
+		const maskArea = $('<div></div>');
+		area.append(kanjiArea);
+		area.append(maskArea);
+		const kanji = getRandomFromList(kanjilist);
+		kanjiArea.html(kanji);
+		const w = area.innerWidth();
+		kanjiArea.css('font-size',w+'px');
+		maskArea.css('position','absolute');
+		maskArea.css('height','60%');
+		maskArea.css('width','100%');
+		maskArea.css('background-color','black');
+		
+		area.click(()=>{
+			maskArea.remove();
+		});
+	}
+	
+	displayKanji();
+	
+
+})();
+
+</script>
+</html>
