@@ -65,10 +65,18 @@ const loadTextFileSync = path => {
 		const area = $('.setting-area');
 		area.append('<span>何%隠すか：</span>');
 		
-		const iptSetHeight = $('<input type="number" value="70" max="100" min="0" step="10">');
+		const iptSetHeight = $('<input type="range" value="70" max="100" min="0" step="10">');
 		area.append(iptSetHeight);
+		
+		const num_area = $('<span></span>');
+		area.append(num_area);
+		
+		const setNum = num => num_area.html(String(num)+'%');
+		setNum(iptSetHeight.val());
 		iptSetHeight.change(()=>{
-			DisplayArea.setHeight(iptSetHeight.val());
+			const val = iptSetHeight.val();
+			DisplayArea.setHeight(val);
+			setNum(val);
 		});
 		return {
 			getHeight: ()=>iptSetHeight.val(),
