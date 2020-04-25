@@ -63,6 +63,7 @@ const loadTextFileSync = path => {
 	
 	const SettingArea = (()=>{
 		const area = $('.setting-area');
+		area.css('margin-top','20px');
 		area.append('<span>何%隠すか：</span>');
 		
 		const iptSetHeight = $('<input type="range" value="70" max="100" min="0" step="10">');
@@ -95,8 +96,10 @@ const loadTextFileSync = path => {
 		area.append(maskArea);
 		
 		area.css('max-width','400px');
+		area.css('margin-top','-16.6666%');
+		area.css('margin-bottom','-16.6666%');
+		area.css('z-index','-30');
 
-		kanjiArea.css('object-fit','cover');
 		const w = area.innerWidth();
 		kanjiArea.css('font-size',w+'px');
 		maskArea.css('position','absolute');
