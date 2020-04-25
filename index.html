@@ -61,6 +61,11 @@ const loadTextFileSync = path => {
 	
 	console.log(kanjilist.join(','));
 	
+	const mainArea = $('.main');
+	mainArea.css('max-width','400px');
+	mainArea.css('max-height','600px');
+
+	
 	const SettingArea = (()=>{
 		const area = $('.setting-area');
 		area.css('margin-top','20px');
@@ -95,8 +100,6 @@ const loadTextFileSync = path => {
 		area.append(kanjiArea);
 		area.append(maskArea);
 		
-		area.css('max-width','400px');
-		area.css('max-height','600px');
 		area.css('margin-top','-16.6666%');
 		area.css('margin-bottom','-16.6666%');
 		area.css('z-index','-30');
